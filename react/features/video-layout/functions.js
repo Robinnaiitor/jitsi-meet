@@ -113,11 +113,13 @@ export function getTileViewGridDimensions(state: Object) {
  */
 export function shouldDisplayTileView(state: Object = {}) {
     const participantCount = getParticipantCount(state);
+    const tileViewAlwaysEnabled = interfaceConfig?.TILE_VIEW_ALWAYS_ENABLED;
 
     // In case of a lonely meeting, we don't allow tile view.
+    // Except whenever TILE_VIEW_ALWAYS_ENABLED is set to true.
     // But it's a special case too, as we don't even render the button,
     // see TileViewButton component.
-    if (participantCount < 2) {
+    if (participantCount < 2 && !tileViewAlwaysEnabled) {
         return false;
     }
 
@@ -150,8 +152,8 @@ export function shouldDisplayTileView(state: Object = {}) {
         // We pinned a participant
         || getPinnedParticipant(state)
 
-        // It's a 1-on-1 meeting
-        || participantCount < 3
+        // It's a 1-on-1 meeting and TILE_VIEW_ALWAYS_ENABLED is not true
+        || ((participantCount < 3) && !tileViewAlwaysEnabled)
 
         // There is a shared YouTube video in the meeting
         || isYoutubeVideoPlaying(state)

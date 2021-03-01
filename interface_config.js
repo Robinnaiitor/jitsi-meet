@@ -195,6 +195,7 @@ var interfaceConfig = {
      */
     SUPPORT_URL: 'https://community.jitsi.org/',
 
+    TILE_VIEW_ALWAYS_ENABLED: false,
     TOOLBAR_ALWAYS_VISIBLE: false,
 
     /**
